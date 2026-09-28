@@ -1,6 +1,9 @@
 package mathutil
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 // Add returns the sum of a and b.
 func Add(a, b int) int {
@@ -16,3 +19,7 @@ func Divide(a, b int) int {
 }
 
 var _ = errors.New
+
+func format(value string) string {
+	return fmt.Sprintf("%s", value)
+}
