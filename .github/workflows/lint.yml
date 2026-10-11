@@ -1,4 +1,4 @@
-name: Lint
+name: Go-only Super-Linter
 
 on:
   push:
@@ -7,31 +7,30 @@ on:
     branches: [main]
 
 permissions:
+  contents: read
   checks: write
-  contents: write
+  statuses: write
 
 jobs:
-  run-linters:
-    name: Run linters
+  lint:
+    name: Go-only Super-Linter
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out Git repository
+      - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: "1.25"
+      - name: Build Go-only Super-Linter image
+        run: docker build -t go-superlinter -f Dockerfile .
 
-      # lint-action does not install linters for you
-      - name: Install staticcheck
-        run: go install honnef.co/go/tools/cmd/staticcheck@latest
-
-      - name: Run linters
-        uses: wearerequired/lint-action@v3
-        with:
-          gofmt: true
-          gofmt_auto_fix: true
-          staticcheck: true
-          auto_fix: true
+      - name: Run Go-only Super-Linter
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/tmp/lint" \
+            -w /tmp/lint \
+            -e RUN_LOCAL=true \
+            -e VALIDATE_ALL_CODEBASE=false \
+            -e VALIDATE_GO=true \
+            -e DEFAULT_BRANCH=main \
+            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            go-superlinter

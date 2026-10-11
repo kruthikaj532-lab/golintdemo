@@ -1,0 +1,18 @@
+FROM ghcr.io/super-linter/super-linter:slim-v5
+
+ENV VALIDATE_ALL_CODEBASE=false \
+    VALIDATE_GO=true \
+    VALIDATE_GITHUB_ACTIONS=false \
+    VALIDATE_YAML=false \
+    VALIDATE_JSON=false \
+    VALIDATE_MARKDOWN=false \
+    VALIDATE_DOCKERFILE=false \
+    VALIDATE_BASH=false \
+    VALIDATE_PYTHON=false \
+    VALIDATE_JS=false \
+    VALIDATE_TYPESCRIPT_ES=false \
+    VALIDATE_TYPESCRIPT_PRETTIER=false \
+    VALIDATE_CSS=false \
+    VALIDATE_INFRA=false \
+    DEFAULT_BRANCH=main \
+    LOG_LEVEL=NOTICE
