@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 
 	"example.com/go-lint-demo/mathutil"
 )
