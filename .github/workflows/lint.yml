@@ -28,7 +28,6 @@ jobs:
           docker run --rm \
             -v "${{ github.workspace }}:/tmp/lint" \
             -w /tmp/lint \
-            -e RUN_LOCAL=true \
             -e VALIDATE_ALL_CODEBASE=false \
             -e VALIDATE_GO=true \
             -e DEFAULT_BRANCH=main \
